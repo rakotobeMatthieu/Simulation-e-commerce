@@ -3,7 +3,7 @@ package grails
 class BootStrap {
 
     def init = { servletContext ->
-        ["Serge", "Evgeniya", "Gabriel", "Alison"].each {
+        ["ADMIN", "MODERATOR", "CLIENT"].each {
             String name ->
                 // Je crée l'utilisateur correspondant au nom récupéré
                 def userInstance = new User(username: name, password: "password")
