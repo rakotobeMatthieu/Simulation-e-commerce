@@ -29,7 +29,58 @@
             <g:form resource="${this.user}" method="PUT">
                 <g:hiddenField name="version" value="${this.user?.version}" />
                 <fieldset class="form">
-                    <f:all bean="user"/>
+                    <div class='fieldcontain required'>
+                        <label for='password'>Password
+                            <span class='required-indicator'>*</span>
+                        </label><input type="password" name="password" required="" value="" id="password" />
+                    </div>
+
+                    <div class='fieldcontain required'>
+                        <label for='username'>Username
+                            <span class='required-indicator'>*</span>
+                        </label><input type="text" name="username" value="${user.username}" required="" id="username" />
+                    </div>
+
+                    <div class='fieldcontain'>
+                        <g:if test="${user.passwordExpired == false}">
+                            <label for='passwordExpired'>Password Expired</label><input type="hidden" name="_passwordExpired" /><input type="checkbox" name="passwordExpired" id="passwordExpired"  />
+                        </g:if>
+                        <g:if test="${user.passwordExpired == true}">
+                            <label for='passwordExpired'>Password Expired</label><input type="hidden" name="_passwordExpired" /><input type="checkbox" checked="checked" name="passwordExpired" id="passwordExpired"  />
+                        </g:if>
+                    </div>
+
+                    <div class='fieldcontain'>
+                        <label for='saleAds'>Sale Ads</label><ul></ul><a href="/saleAd/create?user.id=1">Add SaleAd</a>
+                    </div>
+
+                    <div class='fieldcontain'>
+                        <g:if test="${user.accountLocked == false}">
+                            <label for='accountLocked'>Account Locked</label><input type="hidden" name="_accountLocked" /><input type="checkbox" name="accountLocked" id="accountLocked"  />
+                        </g:if>
+                        <g:if test="${user.accountLocked == true}">
+                            <label for='accountLocked'>Account Locked</label><input type="hidden" name="_accountLocked" /><input type="checkbox" checked="checked" name="accountLocked" id="accountLocked"  />
+                        </g:if>
+                    </div>
+
+                    <div class='fieldcontain'>
+                        <g:if test="${user.accountExpired == false}">
+                            <label for='accountExpired'>Account Expired</label><input type="hidden" name="_accountExpired" /><input type="checkbox" name="accountExpired" id="accountExpired"  />
+                        </g:if>
+                        <g:if test="${user.accountExpired == true}">
+                            <label for='accountExpired'>Account Expired</label><input type="hidden" name="_accountExpired" /><input type="checkbox" checked="checked" name="accountExpired" id="accountExpired"  />
+                        </g:if>
+                    </div>
+
+                    <div class='fieldcontain'>
+                        <g:if test="${user.enabled == false}">
+                            <label for='enabled'>Enabled</label><input type="hidden" name="_enabled" /><input type="checkbox" name="enabled" checked="checked" id="enabled"  />
+                        </g:if>
+                        <g:if test="${user.enabled == true}">
+                            <label for='enabled'>Enabled</label><input type="hidden" name="_enabled" /><input type="checkbox" checked="checked" name="enabled" checked="checked" id="enabled"  />
+                        </g:if>
+                    </div>
+
                 </fieldset>
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />

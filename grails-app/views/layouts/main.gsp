@@ -15,6 +15,13 @@
 </head>
 <body>
 
+    <sec:ifLoggedIn>
+        <form method="post" action="/logout">
+            <input type="submit" value="Log Out">
+        </form>
+    </sec:ifLoggedIn>
+
+
     <div class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="container">
             <div class="navbar-header">

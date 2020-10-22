@@ -18,7 +18,72 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${userList}" />
+
+            <table>
+                <thead>
+                <tr>
+
+                    <th class="sortable" ><a href="/user/index?sort=password&amp;max=10&amp;order=asc">Password</a></th>
+
+                    <th class="sortable" ><a href="/user/index?sort=username&amp;max=10&amp;order=asc">Username</a></th>
+
+                    <th class="sortable" ><a href="/user/index?sort=passwordExpired&amp;max=10&amp;order=asc">Password Expired</a></th>
+
+                    <th class="sortable" ><a href="/user/index?sort=saleAds&amp;max=10&amp;order=asc">Sale Ads</a></th>
+
+                    <th class="sortable" ><a href="/user/index?sort=accountLocked&amp;max=10&amp;order=asc">Account Locked</a></th>
+
+                    <th class="sortable" ><a href="/user/index?sort=accountExpired&amp;max=10&amp;order=asc">Account Expired</a></th>
+
+                    <th class="sortable" ><a href="/user/index?sort=enabled&amp;max=10&amp;order=asc">Enabled</a></th>
+
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <g:each in="${grails.User.list()}" var="userList">
+
+                    <tr class="even">
+
+
+                        <td><a href="/user/show/${userList.id}">${userList.password}</a></td>
+
+
+
+                        <td>${userList.username}</td>
+
+
+
+                        <td>${userList.passwordExpired}</td>
+
+
+
+                        <td><ul>
+                            <g:each in="${userList.saleAds}" var="saleAd">
+                                <li><a href="/illustration/show/${saleAd.id}">${saleAd.author}</a></li>
+                            </g:each>
+                        </ul></td>
+
+
+
+                        <td>${userList.accountLocked}</td>
+
+
+
+                        <td>${userList.accountExpired}</td>
+
+
+
+                        <td>${userList.enabled}</td>
+
+
+                    </tr>
+
+                </g:each>
+
+                </tbody>
+            </table>
 
             <div class="pagination">
                 <g:paginate total="${userCount ?: 0}" />
