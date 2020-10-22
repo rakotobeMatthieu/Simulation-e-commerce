@@ -77,6 +77,7 @@
                 </g:each>
             </div>
 
+
             <div class="fieldcontain required">
                 <label for="addIllustrations">Add illustrations
                     <span class="required-indicator">*</span>

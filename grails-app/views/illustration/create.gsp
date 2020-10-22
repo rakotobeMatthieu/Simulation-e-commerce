@@ -27,7 +27,21 @@
             </g:hasErrors>
             <g:form resource="${this.illustration}" method="POST">
                 <fieldset class="form">
-                    <f:all bean="illustration"/>
+                    <fieldset class="form">
+                        <div class='fieldcontain required'>
+                            <label for='filename'>Filename
+                                <span class='required-indicator'>*</span>
+                            </label><input type="text" name="filename" value="" required="" id="filename" />
+                        </div><div class='fieldcontain required'>
+                        <label for='saleAd'>Sale Ad
+                            <span class='required-indicator'>*</span>
+                        </label><select name="saleAd.id" required="" id="saleAd" >
+                            <g:each in="${grails.SaleAd.list()}" var="saleAdList">
+                                        <option value="${saleAdList.id}" >grails.SaleAd : ${saleAdList.id}</option>
+                            </g:each>
+                        </select>
+                    </div>
+                    </fieldset>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

@@ -18,7 +18,45 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${userList}" />
+            <table>
+                <thead>
+                <tr>
+
+                    <th class="sortable" ><a href="/user/index?sort=username&amp;max=10&amp;order=asc">Username</a></th>
+
+                    <th class="sortable" ><a href="/user/index?sort=password&amp;max=10&amp;order=asc">Password</a></th>
+
+                    <th class="sortable" ><a href="/user/index?sort=saleAds&amp;max=10&amp;order=asc">Sale Ads</a></th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+            <g:each in="${grails.User.list()}" var="userList">
+
+                <tr class="even">
+
+
+                    <td><a href="/user/show/${userList.id}">${userList.username}</a></td>
+
+
+
+                    <td>${userList.password}</td>
+
+
+
+                    <td><ul>
+                        <g:each in="${userList.saleAds}" var="saleAds">
+                                <li><a href="/saleAd/show/${saleAds.id}">grails.SaleAd : ${saleAds.id}</a></li>
+                        </g:each>
+                    </ul></td>
+
+
+                </tr>
+
+            </g:each>
+
+                </tbody>
 
             <div class="pagination">
                 <g:paginate total="${userCount ?: 0}" />

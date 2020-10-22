@@ -18,7 +18,36 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${illustrationList}" />
+            <table>
+                <thead>
+                <tr>
+
+                    <th class="sortable" ><a href="/illustration/index?sort=filename&amp;max=10&amp;order=asc">Filename</a></th>
+
+                    <th class="sortable" ><a href="/illustration/index?sort=saleAd&amp;max=10&amp;order=asc">Sale Ad</a></th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+            <g:each in="${grails.Illustration.list()}" var="illustrationList">
+
+                <tr class="even">
+
+
+                    <td><a href="/illustration/show/${illustrationList.id}">${illustrationList.filename}</a></td>
+
+
+
+                    <td><a href="/saleAd/show/${illustrationList.id}">grails.SaleAd : ${illustrationList.id}</a></td>
+
+
+                </tr>
+
+            </g:each>
+
+                </tbody>
+            </table>
 
             <div class="pagination">
                 <g:paginate total="${illustrationCount ?: 0}" />

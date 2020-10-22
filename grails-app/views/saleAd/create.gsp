@@ -27,8 +27,37 @@
     </g:hasErrors>
     <g:form resource="${this.saleAd}" method="POST">
         <fieldset class="form">
-            <f:all bean="saleAd"/>
-        </fieldset>
+                <div class='fieldcontain required'>
+                    <label for='title'>Title
+                        <span class='required-indicator'>*</span>
+                    </label><input type="text" name="title" value="" required="" maxlength="50" id="title" />
+                </div>
+                <div class='fieldcontain required'>
+                    <label for='description'>Description
+                        <span class='required-indicator'>*</span>
+                    </label><input type="text" name="description" value="" required="" id="description" />
+                </div>
+                <div class='fieldcontain required'>
+                    <label for='price'>Price
+                        <span class='required-indicator'>*</span>
+                    </label><input type="number decimal" name="price" value="" required="" min="0.0" id="price" />
+                </div>
+                <div class='fieldcontain'>
+                    <label for='illustrations'>Illustrations</label><ul></ul><a href="/illustration/create?saleAd.id=">Add Illustration</a>
+                </div>
+                <div class='fieldcontain required'>
+                    <label for='author'>Author
+                        <span class='required-indicator'>*</span>
+                    </label><select name="author.id" required="" id="author" >
+
+                        <g:each in="${grails.User.list()}" var="userList">
+                                        <option value="${userList.id}" >grails.User : ${userList.id}</option>
+                        </g:each>
+
+                    </select>
+                </div>
+            </fieldset>
+
         <fieldset class="buttons">
             <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
         </fieldset>

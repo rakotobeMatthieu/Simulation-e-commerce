@@ -27,7 +27,21 @@
             </g:hasErrors>
             <g:form resource="${this.user}" method="POST">
                 <fieldset class="form">
-                    <f:all bean="user"/>
+                    <div class='fieldcontain required'>
+                        <label for='username'>Username
+                            <span class='required-indicator'>*</span>
+                        </label><input type="text" name="username" value="" required="" id="username" />
+                    </div>
+                    <div class='fieldcontain required'>
+                        <label for='password'>Password
+                            <span class='required-indicator'>*</span>
+                        </label>
+                            <input type="text" name="password" value="" required="" id="password" />
+                    </div>
+                    <div class='fieldcontain'>
+                        <label for='saleAds'>Sale Ads</label><ul></ul><a href="/saleAd/create?user.id=">Add SaleAd</a>
+                    </div>
+
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

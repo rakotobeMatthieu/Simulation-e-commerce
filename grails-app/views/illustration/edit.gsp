@@ -29,7 +29,23 @@
             <g:form resource="${this.illustration}" method="PUT">
                 <g:hiddenField name="version" value="${this.illustration?.version}" />
                 <fieldset class="form">
-                    <f:all bean="illustration"/>
+
+                        <div class="fieldcontain required">
+                            <label for="filename">Filename
+                                <span class="required-indicator">*</span>
+                            </label>
+                            <input type="text" name="filename" value="${illustration.filename}" required="" id="filename">
+                        </div>
+
+                        <div class="fieldcontain required">
+                            <label for="saleAd">SaleAd
+                                <span class="required-indicator">*</span>
+                            </label>
+                            <g:select from="${grails.SaleAd.list()}"
+                                      name="saleAd" optionKey="id"
+                                      optionValue="title" value="${illustration.saleAd.id}"/>
+                        </div>
+
                 </fieldset>
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
