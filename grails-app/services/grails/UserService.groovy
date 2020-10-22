@@ -1,5 +1,6 @@
 package grails
 
+import grails.User
 import grails.gorm.services.Service
 
 @Service(User)

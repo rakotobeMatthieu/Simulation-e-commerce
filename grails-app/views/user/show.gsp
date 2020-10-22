@@ -19,32 +19,7 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-
-                <ol class="property-list user">
-
-                    <li class="fieldcontain">
-                        <span id="username-label" class="property-label">Username</span>
-                        <div class="property-value" aria-labelledby="username-label">${user.username}</div>
-                    </li>
-
-                    <li class="fieldcontain">
-                        <span id="password-label" class="property-label">Password</span>
-                        <div class="property-value" aria-labelledby="password-label">${user.password}</div>
-                    </li>
-
-                    <li class="fieldcontain">
-                        <span id="saleAds-label" class="property-label">Sale Ads</span>
-                        <div class="property-value" aria-labelledby="saleAds-label">
-                            <g:each in="${user.saleAds}" var="saleAdList">
-                                <ul><li>
-                                    <a href="/saleAd/show/${saleAdList.id}">grails.SaleAd : ${saleAdList.id}</a>
-                                </li></ul>
-                            </g:each>
-                        </div>
-                    </li>
-
-                </ol>
-
+            <f:display bean="user" />
             <g:form resource="${this.user}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.user}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
