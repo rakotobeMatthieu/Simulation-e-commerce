@@ -8,7 +8,7 @@ import static org.springframework.http.HttpStatus.*
 class IllustrationController {
 
     IllustrationService illustrationService
-
+    UploadService uploadService
     
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -23,6 +23,28 @@ class IllustrationController {
         respond new Illustration(params)
     }
 
+//    def save(Illustration illustration) {
+//        if (illustration == null) {
+//            notFound()
+//            return
+//        }
+//
+//        try {
+//            illustrationService.save(illustration)
+//        } catch (ValidationException e) {
+//            respond illustration.errors, view:'create'
+//            return
+//        }
+//
+//        request.withFormat {
+//            form multipartForm {
+//                flash.message = message(code: 'default.created.message', args: [message(code: 'illustration.label', default: 'Illustration'), illustration.id])
+//                redirect illustration
+//            }
+//            '*' { respond illustration, [status: CREATED] }
+//        }
+//    }
+
     def save(Illustration illustration) {
         if (illustration == null) {
             notFound()
@@ -30,19 +52,28 @@ class IllustrationController {
         }
 
         try {
-            illustrationService.save(illustration)
+            if (request.getFiles('listeFchiers')) {
+                def fileList = request.getFiles('listeFchiers');
+                fileList.each { file ->
+                    def index = file.getOriginalFilename().lastIndexOf(".")
+                    // def nomFichier = file.getOriginalFilename().substring(0, index)
+                    def nomFichier = file.getOriginalFilename()
+                    def illustrationInstance = new Illustration()
+                    illustrationInstance.setFilename(nomFichier)
+                    illustrationInstance.setSaleAd(illustration.getSaleAd())
+                    illustrationInstance.save(flush: true)
+                    if (!file.isEmpty()) {
+                        uploadService.uploadFile(file, "${file.getOriginalFilename()}", "files_Images")
+                    }
+                    redirect action: 'index', controller: 'illustration'
+                }
+            }
         } catch (ValidationException e) {
-            respond illustration.errors, view:'create'
+            respond illustration.errors, view: 'create'
             return
         }
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'illustration.label', default: 'Illustration'), illustration.id])
-                redirect illustration
-            }
-            '*' { respond illustration, [status: CREATED] }
-        }
+
     }
 
     def edit(Long id) {
@@ -84,7 +115,7 @@ class IllustrationController {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'illustration.label', default: 'Illustration'), id])
                 redirect action:"index", method:"GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*'{ redirect action: 'index', controller: 'illustration'}
         }
     }
 

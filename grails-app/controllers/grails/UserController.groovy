@@ -10,7 +10,7 @@ class UserController {
 
     UserService userService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+//    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -32,7 +32,9 @@ class UserController {
         }
 
         try {
+            println(params)
             userService.save(user)
+            UserRole.create(user , Role.get(params.role) , true)
         } catch (ValidationException e) {
             respond user.errors, view:'create'
             return
@@ -41,7 +43,8 @@ class UserController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), user.id])
-                redirect user
+//                redirect user
+                redirect action: 'index', controller: 'user'
             }
             '*' { respond user, [status: CREATED] }
         }
@@ -67,7 +70,8 @@ class UserController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), user.id])
-                redirect user
+                //redirect user
+                redirect action: 'index', controller: 'user'
             }
             '*'{ respond user, [status: OK] }
         }
