@@ -9,7 +9,7 @@ grails:
             # Disabled by default for performance reasons
             events: false
     cors:
-        enable: true
+        enabled: true
 
 info:
     app:
