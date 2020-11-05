@@ -4,6 +4,8 @@
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'grails.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'grails.UserRole'
 grails.plugin.springsecurity.authority.className = 'grails.Role'
+grails.plugin.springsecurity.rest.token.storage.jwt.secret = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJtb29jX3NwcmluZ19zZWN1cml0eSIsImlhdCI6MTU5NjIwNjcxMywiZXhwIjoxNjI3NzQyNzEzLCJhdWQiOiJtb29jX3N0dWRlbnRzIiwic3ViIjoibW9vY19zcHJpbmdfc2VjdXJpdHkiLCJHaXZlbk5hbWUiOiJNb29jIn0.gx1iCqhrx1gikFigcUTqlBBdGZPbXs6bZYxDp5V93fs"
+
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/',               access: ['permitAll']],
 	[pattern: '/testIndex/index',               access: ['permitAll']],
@@ -25,6 +27,14 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**/css/**',      filters: 'none'],
 	[pattern: '/**/images/**',   filters: 'none'],
 	[pattern: '/**/favicon.ico', filters: 'none'],
-	[pattern: '/**',             filters: 'JOINED_FILTERS']
+	[pattern: '/**',             filters: 'JOINED_FILTERS'],
+	[
+			pattern: '/api/**',
+			filters: 'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter'
+	],
+	[
+			pattern: '/**',
+			filters: 'JOINED_FILTERS,-anonymousAuthenticationFilter,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter'
+	]
 ]
 
