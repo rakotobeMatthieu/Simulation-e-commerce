@@ -37,8 +37,9 @@
             <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
             <li class="nav-item hidden-sm-down search-box">
                 <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
-                <form class="app-search">
-                    <input type="text" class="form-control" placeholder="Rechercher quelque chose"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
+                <g:form controller="saleAd" action="search" class="app-search">
+                    <input type="text" class="form-control" placeholder="Rechercher quelque chose" name="recherche"> <a class="srh-btn"><i class="ti-close"></i></a>
+                </g:form>
             </li>
 
         </ul>
@@ -93,6 +94,8 @@
                             <li><a href="/illustration/index">Liste</a></li>
                         </ul>
                     </li>
+                    <li> <a class="has-arrow waves-effect waves-dark" href="/chart/index" aria-expanded="false"><i class="mdi mdi-file-chart"></i><span class="hide-menu">Tableau de Bord</span></a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -112,7 +115,6 @@
                 </div>
             </div>
 
-            <!--- Eto le row no miditra-->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -131,7 +133,6 @@
                                                     </span>
                                                 </div>
                                                 <input type="text" id="username" name="username" placeholder="Entrez nom utilisateur" class="form-control" required="">
-%{--                                                <input type="text" class="form-control" id="exampleInputuname3" placeholder="Entrez nom utilisateur">--}%
                                             </div>
                                         </div>
                                     </div>
@@ -155,11 +156,6 @@
                                         <div class="col-sm-9">
                                             <div class="input-group">
                                                 <h5 class="m-t-30">Choississez un role pour cet utilisateur</h5>
-%{--                                                <select class="selectpicker m-b-20 m-r-10" data-style="btn-warning">--}%
-%{--                                                    <option data-tokens="ketchup mustard">ROLE_ADMIN</option>--}%
-%{--                                                    <option data-tokens="mustard">ROLE_MODERATOR</option>--}%
-%{--                                                    <option data-tokens="frosting">ROLE_CLIENT</option>--}%
-%{--                                                </select>--}%
 
                                                 <select id="role" name="role" class="selectpicker m-b-20 m-r-10" data-style="btn-warning">
 
@@ -184,13 +180,12 @@
                     </div>
                 </div>
             </div>
-            <!--- De midy eto -->
         </div>
     </div>
 
 </div>
 <footer class="footer">
-    © 2020 Back-End BIHAR by Mika.RAHARISON
+    © 2020 Back-End BIHAR by Mika.RAHARISON & Matthieu RAKOTOBE
 </footer>
 </div>
 </div>

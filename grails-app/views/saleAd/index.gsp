@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <asset:stylesheet href="minisidebar/css/style.css"/>
     <asset:stylesheet href="minisidebar/css/colors/default-dark.css" id="theme"/>
+    <asset:stylesheet href="minisidebar/css/mystyle.css"/>
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -36,8 +37,9 @@
             <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
             <li class="nav-item hidden-sm-down search-box">
                 <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
-                <form class="app-search">
-                    <input type="text" class="form-control" placeholder="Rechercher quelque chose"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
+                <g:form controller="saleAd" action="search" class="app-search">
+                    <input type="text" class="form-control" placeholder="Rechercher quelque chose" name="recherche"> <a class="srh-btn"><i class="ti-close"></i></a>
+                </g:form>
             </li>
 
         </ul>
@@ -91,6 +93,9 @@
                             <li><a href="/illustration/index">Liste</a></li>
                         </ul>
                     </li>
+
+                    <li> <a class="has-arrow waves-effect waves-dark" href="/chart/index" aria-expanded="false"><i class="mdi mdi-file-chart"></i><span class="hide-menu">Tableau de Bord</span></a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -111,10 +116,9 @@
             </div>
             <!--- Eto le row no miditra-->
             <div class="row">
-                <g:each in="${grails.SaleAd.list()}" var="saleAdList">
+                <g:each in="${saleAdListe}" var="saleAdList">
                     <div class="col-lg-3 col-md-6 img-responsive">
                         <div class="card">
-%{--                            <img class="card-img-top img-responsive" src="../assets/images/cod.jpg" alt="Card image cap">--}%
                             <g:if test="${saleAdList.illustrations.getAt(0) != null}">
                                 <a href="/saleAd/edit/${saleAdList.id}"><asset:image src="${saleAdList.illustrations.getAt(0).filename}" alt="Card image cap" class="card-img-top" width="200px" height="181px"/></a>
                             </g:if>
@@ -127,22 +131,27 @@
                                 <p class="card-subtitle"> Price : ${saleAdList.price}$</p>
                                 <p class="card-text"><a href="/user/edit/${saleAdList.author.id}">Author : ${saleAdList.author.username}</a></p>
                                 <a  class="card-inverse" href="/saleAd/edit/${saleAdList.id}" class="btn btn-primary"><i class="fa fa-eye"></i> Voir l'annonce</a>
-%{--                                <a class="card-actions" href="#" class="btn btn-danger"> <i class="fa fa-trash"></i> Supprimer</a>--}%
                             </div>
                         </div>
                     </div>
                 </g:each>
             </div>
 
+            <center>
+                <div class="paginate">
+                    <g:paginate total="${saleAdTotal ?: fraglist.Language.count}" prev="&lt;" next="&gt;"
+                                controller="saleAd" action="index"
+                                max="${max ?: 8}" offset="${offset ?: 0}" />
+                </div>
+            </center>
 
 
-            <!--- De midy eto -->
         </div>
     </div>
 
 </div>
 <footer class="footer">
-    © 2020 Back-End BIHAR by Mika.RAHARISON
+    © 2020 Back-End BIHAR by Mika.RAHARISON & Matthieu RAKOTOBE
 </footer>
 </div>
 </div>

@@ -11,8 +11,10 @@ class IllustrationController {
     UploadService uploadService
     
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond illustrationService.list(params), model:[illustrationCount: illustrationService.count()]
+        params.max = params?.max ?: 8
+        params.offset = params?.offset ?: 0
+        def illustrationL = Illustration.list(params)
+        respond illustrationService.list(params), model:[illustrationCount: illustrationService.count(),illustrationL : illustrationL , IllustrationTotal: Illustration.count,max: params.max,offset: params.offset]
     }
 
     def show(Long id) {
@@ -23,27 +25,6 @@ class IllustrationController {
         respond new Illustration(params)
     }
 
-//    def save(Illustration illustration) {
-//        if (illustration == null) {
-//            notFound()
-//            return
-//        }
-//
-//        try {
-//            illustrationService.save(illustration)
-//        } catch (ValidationException e) {
-//            respond illustration.errors, view:'create'
-//            return
-//        }
-//
-//        request.withFormat {
-//            form multipartForm {
-//                flash.message = message(code: 'default.created.message', args: [message(code: 'illustration.label', default: 'Illustration'), illustration.id])
-//                redirect illustration
-//            }
-//            '*' { respond illustration, [status: CREATED] }
-//        }
-//    }
 
     def save(Illustration illustration) {
         if (illustration == null) {

@@ -37,8 +37,9 @@
             <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
             <li class="nav-item hidden-sm-down search-box">
                 <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
-                <form class="app-search">
-                    <input type="text" class="form-control" placeholder="Rechercher quelque chose"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
+                <g:form controller="saleAd" action="search" class="app-search">
+                    <input type="text" class="form-control" placeholder="Rechercher quelque chose" name="recherche"> <a class="srh-btn"><i class="ti-close"></i></a>
+                </g:form>
             </li>
 
         </ul>
@@ -93,6 +94,8 @@
                             <li><a href="/illustration/index">Liste</a></li>
                         </ul>
                     </li>
+                    <li> <a class="has-arrow waves-effect waves-dark" href="/chart/index" aria-expanded="false"><i class="mdi mdi-file-chart"></i><span class="hide-menu">Tableau de Bord</span></a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -130,11 +133,6 @@
                                         <strong>Error : </strong> <g:message
                                             error="${error}"/>
                                     </div>
-
-                                %{--                                                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><div class="alert alert-danger" role="alert">--}%
-                                %{--                                                    <strong>Error : </strong> <g:message--}%
-                                %{--                                                            error="${error}"/>--}%
-                                %{--                                                </div></li>--}%
                                 </g:eachError>
                             </g:hasErrors>
 
@@ -189,13 +187,6 @@
                                         <div class="col-sm-9">
                                             <div class="input-group">
                                                 <h5 class="m-t-30">Choississez l'auteur de l'annonce</h5>
-                                                %{--                                                <select class="selectpicker m-b-20 m-r-10" data-style="btn-warning">--}%
-                                                %{--                                                    <option data-tokens="ketchup mustard">ROLE_ADMIN</option>--}%
-                                                %{--                                                    <option data-tokens="mustard">ROLE_MODERATOR</option>--}%
-                                                %{--                                                    <option data-tokens="frosting">ROLE_CLIENT</option>--}%
-                                                %{--                                                </select>--}%
-
-
 
                                                 <select name="author.id" required="" id="author" class="selectpicker m-b-20 m-r-10" data-style="btn-warning">
 
@@ -207,18 +198,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-%{--                                    <div class="form-group row">--}%
-%{--                                        <div class="col-sm-9">--}%
-%{--                                            <label for="cc-name" class="control-label mb-1">Illustrations</label>--}%
-%{--                                            <div class="input-group">--}%
-%{--                                                <div class="fileupload btn-md btn-warning btn-rounded waves-effect waves-light"><span><i class="ion-upload m-r-5"></i>Ajouter Illustrations</span>--}%
-%{--                                                    <input type="file" class="upload"> </div>--}%
-%{--                                            </div>--}%
-%{--                                        </div>--}%
-%{--                                    </div>--}%
-
-
                                     <div class="form-group row ">
                                         <div class="col-sm-9">
                                             <button type="submit" class="btn-md btn-success btn-rounded"><i class="fa fa-plus"></i> Ajouter</button>
@@ -230,13 +209,12 @@
                     </div>
                 </div>
             </div>
-            <!--- De midy eto -->
         </div>
     </div>
 
 </div>
 <footer class="footer">
-    © 2020 Back-End BIHAR by Mika.RAHARISON
+    © 2020 Back-End BIHAR by Mika.RAHARISON & Matthieu RAKOTOBE
 </footer>
 </div>
 </div>

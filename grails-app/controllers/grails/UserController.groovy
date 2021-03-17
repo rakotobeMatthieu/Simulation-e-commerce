@@ -9,8 +9,8 @@ import static org.springframework.http.HttpStatus.*
 class UserController {
 
     UserService userService
+    UserRoleService userRoleService
 
-//    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -43,7 +43,6 @@ class UserController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), user.id])
-//                redirect user
                 redirect action: 'index', controller: 'user'
             }
             '*' { respond user, [status: CREATED] }
@@ -83,6 +82,9 @@ class UserController {
             return
         }
 
+        User userInstanceTemp = User.findById(id)
+        UserRole userRTemp = UserRole.findByUser(userInstanceTemp)
+        userRoleService.delete(userRTemp)
         userService.delete(id)
 
         request.withFormat {

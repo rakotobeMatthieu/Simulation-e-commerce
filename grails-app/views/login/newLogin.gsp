@@ -24,7 +24,6 @@
         <div class="login-box card">
             <div class="card-body">
                 <form action="/login/authenticate" method="POST" id="loginForm" class="form-horizontal form-material" autocomplete="off">
-%{--                <form class="form-horizontal form-material" id="loginform" action="https://www.wrappixel.com/demos/admin-templates/material-pro/minisidebar/index.html">--}%
                     <asset:image src="assets/images/logo.png" alt="Logo" width="350px" height="75px"/>
                     <br>
                     <h3 class="box-title m-b-20">Page de connexion</h3>

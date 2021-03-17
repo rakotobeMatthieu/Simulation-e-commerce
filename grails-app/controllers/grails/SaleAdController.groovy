@@ -12,10 +12,22 @@ class SaleAdController {
 
     SaleAdService saleAdService
 
+    def search(Integer max){
+        params.max = params?.max ?: 8
+        params.offset = params?.offset ?: 0
+        def saleAdList = SaleAd.findAllByDescriptionRlikeOrTitleRlike(params.recherche,params.recherche,params)
+        def saleAdListTemp = SaleAd.findAllByDescriptionRlikeOrTitleRlike(params.recherche,params.recherche)
+        println ("sale AD LIST PLEAAAASE ${saleAdList.size()}")
+        respond saleAdService.list(params), model:[saleAdCount: saleAdService.count(), saleAdListe : saleAdList , saleAdTotal: saleAdListTemp.size(),max: params.max,offset: params.offset , params : params]
+    }
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond saleAdService.list(params), model:[saleAdCount: saleAdService.count()]
+        params.max = params?.max ?: 8
+        params.offset = params?.offset ?: 0
+        //params.max = Math.min(max ?: 10, 100)
+        def saleAdList = SaleAd.list(params)
+        println ("sale AD LIST PLEAAAASE ${saleAdList}")
+        respond saleAdService.list(params), model:[saleAdCount: saleAdService.count(), saleAdListe : saleAdList , saleAdTotal: SaleAd.count,max: params.max,offset: params.offset]
     }
 
     def show(Long id) {
@@ -42,7 +54,6 @@ class SaleAdController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'saleAd.label', default: 'SaleAd'), saleAd.id])
-//                redirect saleAd
                 redirect action: 'index', controller: 'saleAd'
             }
             '*' { respond saleAd, [status: CREATED] }
@@ -70,7 +81,6 @@ class SaleAdController {
         } catch (ValidationException e) {
             println saleAd.errors
             redirect (action: "edit",id: saleAd.id)
-//            respond saleAd.errors, view:'edit'
             return
         }
 

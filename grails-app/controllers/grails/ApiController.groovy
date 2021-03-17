@@ -4,10 +4,10 @@ import grails.converters.JSON
 import grails.converters.XML
 import grails.plugin.springsecurity.annotation.Secured
 
-@Secured(["ROLE_ADMIN","ROLE_MODERATOR"])
+@Secured(["ROLE_ADMIN", "ROLE_MODERATOR"])
 class ApiController {
 
-    def index() { render User.list() as JSON}
+    def index() { render User.list() as JSON }
 
     def user() {
         switch (request.getMethod()) {
@@ -34,32 +34,32 @@ class ApiController {
                 def userInstance = User.get(params.id)
                 if (!userInstance)
                     return response.status = 404
-                if (!request.getJSON().username){
+                if (!request.getJSON().username) {
                     return response.status = 404
                 } else {
                     userInstance.setUsername(request.getJSON().username)
                 }
-                if (!request.getJSON().password){
+                if (!request.getJSON().password) {
                     return response.status = 404
                 } else {
                     userInstance.setPassword(request.getJSON().password)
                 }
-                if (!request.getJSON().enabled){
+                if (!request.getJSON().enabled) {
                     return response.status = 404
                 } else {
                     userInstance.setEnabled(request.getJSON().enabled)
                 }
-                if (!request.getJSON().accountExpired){
+                if (!request.getJSON().accountExpired) {
                     return response.status = 404
                 } else {
                     userInstance.setAccountExpired(request.getJSON().accountExpired)
                 }
-                if (!request.getJSON().accountLocked){
+                if (!request.getJSON().accountLocked) {
                     return response.status = 404
                 } else {
                     userInstance.setAccountLocked(request.getJSON().accountLocked)
                 }
-                if (!request.getJSON().passwordExpired){
+                if (!request.getJSON().passwordExpired) {
                     return response.status = 404
                 } else {
                     userInstance.setPasswordExpired(request.getJSON().passwordExpired)
@@ -171,6 +171,7 @@ class ApiController {
         return response.status = 406
     }
 
+    @Secured(["ROLE_ADMIN", "ROLE_MODERATOR", "ROLE_CLIENT"])
     def saleAd() {
         switch (request.getMethod()) {
             case "GET":
@@ -178,16 +179,10 @@ class ApiController {
                     def saleAdInstance = SaleAd.get(params.id)
                     if (!saleAdInstance)
                         return response.status = 404
-                    response.withFormat {
-                        xml { render saleAdInstance as XML }
-                        json { render saleAdInstance as JSON }
-                    }
+                    respond(saleAdInstance)
                 } else {
                     def listSaleAd = SaleAd.list()
-                    response.withFormat {
-                        xml { render listSaleAd as XML }
-                        json { render listSaleAd as JSON }
-                    }
+                    respond(listSaleAd)
                 }
                 break
             case "POST":
@@ -237,7 +232,7 @@ class ApiController {
                     return response.status = 400
                 } else {
                     def authorInstance = User.get(request.getJSON().author_id)
-                    if(!authorInstance)
+                    if (!authorInstance)
                         return response.status = 400
                     saleAdInstance.setAuthor(authorInstance)
                 }
@@ -279,28 +274,20 @@ class ApiController {
         return response.status = 406
     }
 
-    @Secured(["ROLE_ADMIN","ROLE_MODERATOR","ROLE_CLIENT"])
+    @Secured(["ROLE_ADMIN", "ROLE_MODERATOR", "ROLE_CLIENT"])
     def saleAds() {
         switch (request.getMethod()) {
             case "GET":
                 if (params.username) {
-                  //  def saleAdInstance = SaleAd.get(params.idUser)
+                    //  def saleAdInstance = SaleAd.get(params.idUser)
                     def userInstance = User.findByUsername(params.username)
                     def listSaleAd = SaleAd.findAllByAuthor(userInstance)
                     if (!listSaleAd)
                         return response.status = 404
-                    response.withFormat {
-                        json { render listSaleAd as JSON }
-                        xml { render listSaleAd as XML }
-
-                    }
+                    respond(listSaleAd)
                 } else {
                     def listSaleAd = SaleAd.list()
-                    response.withFormat {
-                        json { render listSaleAd as JSON }
-                        xml { render listSaleAd as XML }
-
-                    }
+                    respond(listSaleAd)
                 }
                 break
             default:
@@ -308,6 +295,10 @@ class ApiController {
                 break
         }
         return response.status = 406
+    }
+
+    def test() {
+        respond(SaleAd.list())
     }
 
 }

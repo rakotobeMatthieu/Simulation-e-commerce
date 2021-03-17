@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>Illustrations</title>
+    <title>Annonces</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <asset:stylesheet href="minisidebar/css/style.css"/>
     <asset:stylesheet href="minisidebar/css/colors/default-dark.css" id="theme"/>
@@ -108,54 +108,55 @@
                     <h3 class="text-warning m-b-0 m-t-0">Dashboard</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">Dashboard</li>
-                        <li class="breadcrumb-item active">Illustrations</li>
-                        <li class="breadcrumb-item active"><a href="#">Liste des illustrations</a></li>
+                        <li class="breadcrumb-item active">Annonces</li>
+                        <li class="breadcrumb-item active"><a href="#">Liste des annonces</a></li>
                     </ol>
                 </div>
             </div>
             <!--- Eto le row no miditra-->
             <div class="row">
-                <g:each in="${illustrationL}" var="illustrationList">
-
+                <g:each in="${saleAdListe}" var="saleAdList">
                     <div class="col-lg-3 col-md-6 img-responsive">
                         <div class="card">
-%{--                            <img class="card-img-top img-responsive" src="../assets/images/cod.jpg" alt="Card image cap">--}%
-                            <asset:image src="${illustrationList.filename}" class="card-img-top" width="200px" height="181px" alt="Card image cap"/>
+                        %{--                            <img class="card-img-top img-responsive" src="../assets/images/cod.jpg" alt="Card image cap">--}%
+                            <g:if test="${saleAdList.illustrations.getAt(0) != null}">
+                                <a href="/saleAd/edit/${saleAdList.id}"><asset:image src="${saleAdList.illustrations.getAt(0).filename}" alt="Card image cap" class="card-img-top" width="200px" height="181px"/></a>
+                            </g:if>
+                            <g:else>
+                            </g:else>
+
                             <div class="card-body">
-                                <h4 class="card-title">${illustrationList.filename}</h4>
-                                <p class="card-text"> ${illustrationList.saleAd.title}</p>
-%{--                                <a  class="card-inverse" href="/illustration/edit/${illustrationList.id}" class="btn btn-primary"><i class="fa fa-eye"></i> Voir illustration</a>--}%
-
-%{--                                <a class="card-actions" href="#" class="btn btn-danger"> <i class="fa fa-trash"></i> Supprimer</a>--}%
-                                <g:link resource="${grails.Illustration.findById(illustrationList.id)}" method="DELETE" class="card-actions" onclick="return confirm('${message(code: 'delete', default: 'Etes vous sur de supprimer cet élement ?')}');"><i class="fa fa-trash"></i> Supprimer</g:link>
-
+                                <h4 class="card-title"><a href="/saleAd/edit/${saleAdList.id}">${saleAdList.title}</a></h4>
+                                <p class="card-text">${saleAdList.description}</p>
+                                <p class="card-subtitle"> Price : ${saleAdList.price}$</p>
+                                <p class="card-text"><a href="/user/edit/${saleAdList.author.id}">Author : ${saleAdList.author.username}</a></p>
+                                <a  class="card-inverse" href="/saleAd/edit/${saleAdList.id}" class="btn btn-primary"><i class="fa fa-eye"></i> Voir l'annonce</a>
+                                %{--                                <a class="card-actions" href="#" class="btn btn-danger"> <i class="fa fa-trash"></i> Supprimer</a>--}%
                             </div>
                         </div>
                     </div>
-
                 </g:each>
-
             </div>
 
             <center>
                 <div class="paginate">
-                    <g:paginate total="${IllustrationTotal ?: fraglist.Language.count}" prev="&lt;" next="&gt;"
-                                controller="illustration" action="index"
+                    <g:paginate total="${saleAdTotal ?: fraglist.Language.count}" prev="&lt;" next="&gt;" params="${params}"
+                                controller="saleAd" action="search"
                                 max="${max ?: 8}" offset="${offset ?: 0}" />
                 </div>
             </center>
 
 
-            <!--- De midy eto -->
         </div>
     </div>
 
 </div>
 <footer class="footer">
-    © 2020 Back-End BIHAR by Mika.RAHARISON
+    © 2020 Back-End BIHAR by Mika.RAHARISON & Matthieu RAKOTOBE
 </footer>
 </div>
 </div>
+
 <asset:javascript src="js/jquery-3.3.1.min.js"/>
 <asset:javascript src="js/popper.min.js"/>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -167,5 +168,6 @@
 <asset:javascript src="assets/plugins/sparkline/jquery.sparkline.min.js"/>
 <asset:javascript src="minisidebar/js/custom.min.js"/>
 <asset:javascript src="assets/plugins/styleswitcher/jQuery.style.switcher.js"/>
+
 </body>
 </html>

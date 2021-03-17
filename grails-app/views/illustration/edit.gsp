@@ -2,14 +2,12 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="au theme template">
     <meta name="author" content="Hau Nguyen">
     <meta name="keywords" content="au theme template">
 
-    <!-- Title Page-->
     <title>Edit Illustration</title>
 
 <asset:stylesheet href="css/font-face.css"/>
@@ -17,10 +15,8 @@
 <asset:stylesheet href="vendor/font-awesome-4.7/css/font-awesome.min.css"/>
 <asset:stylesheet href="vendor/mdi-font/css/material-design-iconic-font.min.css"/>
 
-<!-- Bootstrap CSS-->
 <asset:stylesheet href="vendor/bootstrap-4.1/bootstrap.min.css"/>
 
-<!-- Vendor CSS-->
 
 
 <asset:stylesheet href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css"/>
@@ -30,7 +26,6 @@
 <asset:stylesheet href="vendor/select2/select2.min.css"/>
 <asset:stylesheet href="vendor/perfect-scrollbar/perfect-scrollbar.css"/>
 
-<!-- Main CSS-->
 <asset:stylesheet href="css/theme.css"/>
 
 </head>

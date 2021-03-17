@@ -1,0 +1,34 @@
+.paginate span, .paginate a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+    background-color: whitesmoke;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: center;
+    border-radius: 2px;
+    margin: 0 1px;
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: bold;
+}
+
+.step.gap {
+    display: none;
+    /* ^ if we don't want to see the dots*/
+}
+
+.nextLink, .prevLink {
+
+}
+
+.paginate .currentStep {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+a:hover:not(.active) {
+    background-color: #ddd;
+}
