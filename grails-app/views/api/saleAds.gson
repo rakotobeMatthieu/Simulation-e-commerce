@@ -1,0 +1,8 @@
+import grails.SaleAd
+
+response.contentType "application/json"
+model {
+    List<SaleAd> saleAdList = []
+}
+
+json tmpl.saleAd(saleAdList)

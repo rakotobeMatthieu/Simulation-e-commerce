@@ -1,0 +1,17 @@
+import grails.SaleAd
+response.contentType "application/json"
+model {
+    SaleAd saleAd
+}
+
+json
+        {
+            id saleAd.id
+            title saleAd.title
+            description saleAd.description
+            dateCreated saleAd.dateCreated
+            lastUpdated saleAd.lastUpdated
+            author tmpl.user(saleAd.author)
+            price saleAd.price
+            illustrations tmpl.illustration(saleAd.illustrations)
+        }

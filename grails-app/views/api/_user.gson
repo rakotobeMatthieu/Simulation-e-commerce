@@ -1,0 +1,10 @@
+import grails.User
+response.contentType "application/json"
+model{
+    User user
+}
+response.contentType "application/json"
+json {
+    id user.id
+    username user.username
+}

@@ -1,0 +1,10 @@
+import grails.Illustration
+response.contentType "application/json"
+model{
+    Illustration illustration
+}
+
+json {
+    filename illustration.filename
+    url "http://localhost:8080/assets/"+illustration.filename
+}
